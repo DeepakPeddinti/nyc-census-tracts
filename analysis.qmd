@@ -1,0 +1,35 @@
+---
+title: "Census Tracts"
+author: "Deepak Peddinti"
+format: html
+execute:
+  echo: false
+---
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(viridis)
+library(ggbeeswarm)
+```
+
+```{r}
+nyc_census<-read_csv(file="data/nyc_tracts.csv", show_col_types = FALSE)
+```
+
+```{r}
+#| warning: false
+nyc_census |> ggplot(aes(x = med_income, y = race, color = med_income)) +
+  geom_quasirandom(size = 2, alpha = 0.7) +
+  labs(
+    title = "Household income distribution by largest racial/ethnic group",
+    subtitle = "Census tracts, New York City",
+    x = "Median household income",
+    y = "Largest group in Census tract",
+    caption = "Data source: 2016-2020 ACS"
+  ) + 
+  scale_color_viridis_c(guide = "none")
+```
+
